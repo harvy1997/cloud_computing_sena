@@ -1,14 +1,14 @@
-// Lista de temas del curso.
-// OJO: es un temario PROVISIONAL. Cuando lleguen las guías del SENA,
-// se reemplaza este archivo y toda la app se actualiza sola.
+// Menú de actividades del curso.
+// Se agregan aquí, una a una, a medida que se van definiendo.
 
-export type ActivityType = "lesson" | "quiz" | "lab" | "deliverable";
+export type ActivityType = "lesson" | "quiz" | "lab" | "deliverable" | "infographic";
 
 export const activityLabels: Record<ActivityType, string> = {
   lesson: "Lección",
   quiz: "Quiz",
   lab: "Laboratorio",
   deliverable: "Entregable",
+  infographic: "Infografía",
 };
 
 export type Topic = {
@@ -17,84 +17,20 @@ export type Topic = {
   summary: string;
   emoji: string;
   activities: ActivityType[];
+  /** Ruta de la actividad */
+  href: string;
+  /** Texto del enlace en la tarjeta */
+  cta: string;
 };
 
 export const topics: Topic[] = [
   {
-    id: "intro",
-    title: "¿Qué es la nube?",
-    summary: "De dónde viene, para qué sirve y por qué todo el mundo habla de ella.",
-    emoji: "☁️",
-    activities: ["lesson", "quiz"],
-  },
-  {
-    id: "modelos-servicio",
-    title: "IaaS, PaaS y SaaS",
-    summary: "Los tres sabores de servicio y cuándo usar cada uno.",
-    emoji: "🍰",
-    activities: ["lesson", "quiz"],
-  },
-  {
     id: "modelos-despliegue",
-    title: "Nube pública, privada e híbrida",
-    summary: "Quién es dueño de la infraestructura y qué implica.",
+    title: "Modelos de despliegue de la nube",
+    summary: "Nube pública, privada e híbrida: características, ventajas, desventajas y cuándo usar cada una.",
     emoji: "🏢",
-    activities: ["lesson", "quiz"],
-  },
-  {
-    id: "virtualizacion",
-    title: "Virtualización",
-    summary: "Cómo un servidor se convierte en muchos servidores.",
-    emoji: "🧩",
-    activities: ["lesson", "lab"],
-  },
-  {
-    id: "mi-servidor",
-    title: "Mi propio servidor",
-    summary: "Preparamos el servidor propio: Linux, SSH y primeros comandos.",
-    emoji: "🖥️",
-    activities: ["lesson", "lab", "deliverable"],
-  },
-  {
-    id: "redes-seguridad",
-    title: "Redes y seguridad",
-    summary: "IPs, puertos, firewall y buenas prácticas para no dejar la puerta abierta.",
-    emoji: "🔐",
-    activities: ["lesson", "lab", "quiz"],
-  },
-  {
-    id: "almacenamiento",
-    title: "Almacenamiento",
-    summary: "Archivos, bloques, objetos y copias de seguridad.",
-    emoji: "🗄️",
-    activities: ["lesson", "lab"],
-  },
-  {
-    id: "contenedores",
-    title: "Contenedores con Docker",
-    summary: "Empaquetar una app y correrla igual en cualquier lado.",
-    emoji: "📦",
-    activities: ["lesson", "lab", "quiz"],
-  },
-  {
-    id: "automatizacion",
-    title: "Automatización y serverless",
-    summary: "Que las máquinas hagan el trabajo repetitivo por ti.",
-    emoji: "⚡",
-    activities: ["lesson", "lab"],
-  },
-  {
-    id: "monitoreo-costos",
-    title: "Monitoreo y costos",
-    summary: "Saber qué está pasando y cuánto cuesta.",
-    emoji: "📈",
-    activities: ["lesson", "quiz"],
-  },
-  {
-    id: "proyecto-final",
-    title: "Proyecto final",
-    summary: "Juntamos todo: desplegamos una app completa en nuestro servidor.",
-    emoji: "🚀",
-    activities: ["lab", "deliverable"],
+    activities: ["infographic"],
+    href: "/actividades/modelos-despliegue",
+    cta: "Abrir infografía interactiva",
   },
 ];

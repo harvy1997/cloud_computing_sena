@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { MotionConfig, motion, useScroll, useSpring } from "motion/react";
 import { activityLabels, topics } from "@/data/topics";
 
@@ -106,7 +107,7 @@ export default function Intro() {
           whileTap={{ scale: 0.96 }}
           className="mt-10 rounded-full bg-gradient-to-r from-accent to-accent-2 px-8 py-3 font-semibold text-background shadow-lg shadow-accent-2/30"
         >
-          Ver los temas
+          Ver las actividades
         </motion.a>
 
         <motion.span
@@ -128,9 +129,9 @@ export default function Intro() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-3xl font-bold sm:text-4xl">Lo que vamos a ver</h2>
+          <h2 className="text-3xl font-bold sm:text-4xl">Actividades</h2>
           <p className="mt-3 text-muted">
-            {topics.length} temas · el orden y el contenido final dependen de las guías del SENA
+            {topics.length === 1 ? "1 actividad" : `${topics.length} actividades`} · iremos agregando más
           </p>
         </motion.div>
 
@@ -139,43 +140,55 @@ export default function Intro() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="flex flex-wrap justify-center gap-5"
         >
-          {topics.map((topic, i) => (
-            <motion.li
-              key={topic.id}
-              variants={item}
-              whileHover={{ y: -6, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-accent/60"
-            >
-              <span className="absolute right-4 top-3 font-mono text-5xl font-bold text-white/[0.04] transition-colors group-hover:text-accent/15">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+          {topics.map((topic, i) => {
+            const content = (
+              <>
+                <span className="absolute right-4 top-3 font-mono text-5xl font-bold text-white/[0.04] transition-colors group-hover:text-accent/15">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
 
-              <motion.div
-                className="mb-4 inline-block text-4xl"
-                whileHover={{ rotate: [0, -12, 12, -6, 0] }}
-                transition={{ duration: 0.5 }}
+                <motion.div
+                  className="mb-4 inline-block text-4xl"
+                  whileHover={{ rotate: [0, -12, 12, -6, 0] }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {topic.emoji}
+                </motion.div>
+
+                <h3 className="text-xl font-semibold">{topic.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{topic.summary}</p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {topic.activities.map((a) => (
+                    <span
+                      key={a}
+                      className="rounded-full border border-border px-3 py-1 font-mono text-xs text-accent-2"
+                    >
+                      {activityLabels[a]}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="mt-5 text-sm font-semibold text-accent">{topic.cta} →</p>
+              </>
+            );
+
+            return (
+              <motion.li
+                key={topic.id}
+                variants={item}
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card hover:border-accent/60 sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.85rem)]"
               >
-                {topic.emoji}
-              </motion.div>
-
-              <h3 className="text-xl font-semibold">{topic.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{topic.summary}</p>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                {topic.activities.map((a) => (
-                  <span
-                    key={a}
-                    className="rounded-full border border-border px-3 py-1 font-mono text-xs text-accent-2"
-                  >
-                    {activityLabels[a]}
-                  </span>
-                ))}
-              </div>
-            </motion.li>
-          ))}
+                <Link href={topic.href} className="block p-6">
+                  {content}
+                </Link>
+              </motion.li>
+            );
+          })}
         </motion.ol>
       </main>
 

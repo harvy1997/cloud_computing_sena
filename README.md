@@ -24,25 +24,18 @@ Los laboratorios se practican, por ahora, en **un servidor propio**. Más adelan
 
 ## ✨ Qué tiene hoy
 
-- 🏠 **Pantalla introductoria** con la lista de todos los temas del curso.
+- 🏠 **Pantalla introductoria** con el menú de actividades.
 - 🎞️ **Animaciones**: portada con nubes flotantes, título que aparece con desenfoque, tarjetas que entran en cascada al hacer scroll, efectos al pasar el mouse y barra de progreso de lectura.
 - ♿ **Respeta "movimiento reducido"**: si tu sistema lo pide, las animaciones se calman.
-- 🧱 **Temas como datos**: la lista vive en un solo archivo, así que cambiar el temario no toca el diseño.
+- 🧱 **Menú como datos**: la lista vive en un solo archivo, así que agregar una actividad no toca el diseño del inicio.
 
-## 🗺️ Hoja de ruta
+## 🗺️ Actividades
 
-| Estado | Actividad |
-| :---: | --- |
-| ✅ | Pantalla introductoria con lista de temas |
-| ⬜ | Página de cada tema |
-| ⬜ | Lecciones teóricas |
-| ⬜ | Quizzes con puntaje y retroalimentación |
-| ⬜ | Laboratorios con checklist de pasos |
-| ⬜ | Entregables y proyecto final |
-| ⬜ | Guardar el progreso |
-| ⬜ | Contenido real a partir de las guías del SENA |
+El menú crece a medida que se definen las actividades.
 
-> ⚠️ El temario actual es **provisional**. Se reemplazará con el contenido de las guías oficiales del SENA.
+| Estado | Actividad | Tipo |
+| :---: | --- | --- |
+| ✅ | [Modelos de despliegue de la nube](src/components/infographic/DeploymentInfographic.tsx) (pública, privada e híbrida) | Infografía interactiva |
 
 ## 🚀 Cómo correrlo
 
@@ -66,21 +59,24 @@ npm run start   # correr la versión compilada
 npm run lint    # revisar el código
 ```
 
-## 📚 Cómo agregar o cambiar un tema
+## 📚 Cómo agregar una actividad
 
-Todo el temario está en [`src/data/topics.ts`](src/data/topics.ts). Agrega un objeto a la lista y aparece solo en la pantalla:
+1. Crea la página en `src/app/actividades/<nombre>/page.tsx`.
+2. Agrega la tarjeta al menú en [`src/data/topics.ts`](src/data/topics.ts):
 
 ```ts
 {
-  id: "docker-compose",
-  title: "Docker Compose",
-  summary: "Levantar varios contenedores con un solo archivo.",
+  id: "mi-actividad",
+  title: "Título de la actividad",
+  summary: "Una frase que explique de qué trata.",
   emoji: "🐳",
-  activities: ["lesson", "lab", "quiz"],
+  activities: ["lab"],
+  href: "/actividades/mi-actividad",
+  cta: "Abrir laboratorio",
 }
 ```
 
-Tipos de actividad disponibles: `lesson` (lección), `quiz`, `lab` (laboratorio) y `deliverable` (entregable).
+Tipos disponibles: `lesson` (lección), `quiz`, `lab` (laboratorio), `deliverable` (entregable) e `infographic` (infografía).
 
 ## 🗂️ Estructura
 
@@ -89,11 +85,15 @@ src/
 ├── app/
 │   ├── layout.tsx        # Layout general, fuentes y metadatos
 │   ├── page.tsx          # Página de inicio
-│   └── globals.css       # Colores, tema y animaciones CSS
+│   ├── globals.css       # Colores, tema y animaciones CSS
+│   └── actividades/
+│       └── modelos-despliegue/   # Actividad 1: infografía
 ├── components/
-│   └── Intro.tsx         # Pantalla introductoria animada
+│   ├── Intro.tsx         # Pantalla introductoria con el menú
+│   └── infographic/      # Componentes de la infografía
 └── data/
-    └── topics.ts         # Lista de temas del curso
+    ├── topics.ts               # Menú de actividades
+    └── deployment-models.ts    # Contenido de la infografía
 ```
 
 ## 🛠️ Tecnologías
